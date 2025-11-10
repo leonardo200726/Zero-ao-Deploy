@@ -10,13 +10,21 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, ".")));
+app.use(express.static("."));
 
-// 🔹 SUA CONEXÃO COM O MONGODB ATLAS
-const MONGO_URI = "mongodb+srv://leonardolourenco_db_user:Mrlka1234.@cluster0.8qbgvkn.mongodb.net/?appName=Cluster0";
+// Rota para a página inicial
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// 🔹 Conexão com o MongoDB Atlas
+const MONGO_URI = process.env.MONGODB_URI || "mongodb+srv://leonardolourenco_db_user:Mrlka1234.@cluster0.8qbgvkn.mongodb.net/?appName=Cluster0";
 
 // 🔹 Conexão com o banco
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log("✅ Conectado ao MongoDB Atlas"))
   .catch(err => console.error("❌ Erro ao conectar:", err));
 
