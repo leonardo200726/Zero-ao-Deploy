@@ -18,13 +18,16 @@ app.get("/", (req, res) => {
 });
 
 // 🔹 Conexão com o MongoDB Atlas
-const MONGO_URI = process.env.MONGODB_URI || "mongodb+srv://leonardolourenco_db_user:Mrlka12345.@cluster0.8qbgvkn.mongodb.net/?appName=Cluster0";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb+srv://leonardolourenco_db_user:Mrlka12345.@cluster0.8qbgvkn.mongodb.net/?retryWrites=true&w=majority";
 
 // 🔹 Conexão com o banco
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+try {
+  await mongoose.connect(MONGO_URI);
+  console.log("✅ Conectado ao MongoDB Atlas");
+} catch (err) {
+  console.error("❌ Erro ao conectar:", err.message);
+  process.exit(1);
+}
   .then(() => console.log("✅ Conectado ao MongoDB Atlas"))
   .catch(err => console.error("❌ Erro ao conectar:", err));
 
