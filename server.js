@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 // 🔹 Conexão com o MongoDB Atlas
-const MONGO_URI = process.env.MONGODB_URI || "mongodb+srv://leonardolourenco_db_user:Mrlka1234.@cluster0.8qbgvkn.mongodb.net/?appName=Cluster0";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb+srv://leonardolourenco_db_user:Mrlka12345.@cluster0.8qbgvkn.mongodb.net/?appName=Cluster0";
 
 // 🔹 Conexão com o banco
 mongoose.connect(MONGO_URI, {
